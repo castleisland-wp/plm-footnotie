@@ -1,0 +1,17 @@
+@import "compass";
+
+.notelist {
+	font-size: 90%;
+	margin: 12px 8px;
+	padding: 8px 8px 4px;
+	border-top: 1px solid black;
+	li {
+		margin-left: 20px;
+		margin-bottom: 5px;
+	}
+}
+
+.notelink {
+	vertical-align: super;
+	font-size: 75%;
+}

@@ -1,0 +1,18 @@
+/* line 3, style.scss */
+.notelist {
+  font-size: 90%;
+  margin: 12px 8px;
+  padding: 8px 8px 4px;
+  border-top: 1px solid black;
+}
+/* line 8, style.scss */
+.notelist li {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+/* line 14, style.scss */
+.notelink {
+  vertical-align: super;
+  font-size: 75%;
+}
