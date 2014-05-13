@@ -9,9 +9,35 @@
 		margin-left: 20px;
 		margin-bottom: 5px;
 	}
+	&.no-list.hide {
+		display: none;
+	}
 }
 
 .notelink {
 	vertical-align: super;
 	font-size: 75%;
+	position: relative;
+}
+
+.dropbox {
+	visibility: hidden;
+	display: block;
+	position: absolute;
+	padding: 4px;
+	border: 1px solid black;
+	top: 16px;
+	left: -150px;
+	width: 300px;
+	background-color: white;
+	&.round {
+		@include border-radius(8px);
+	}
+	&.trans {
+		opacity: 0.9;
+	}
+	@include single-transition(all, 0.4s, ease-in-out);
+	&.show {
+		visibility: visible;
+	}
 }

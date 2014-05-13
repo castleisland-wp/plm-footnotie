@@ -8,6 +8,8 @@ Author: Paul McElligott
 Author URI: http://www.paulmcelligott.com
 License: GPL
 */
+include(plugin_dir_path(__FILE__) . '/plm-footnotie-settings.php');
+
 class PLM_footnotie {
 
 	public function __construct() {
@@ -17,6 +19,17 @@ class PLM_footnotie {
 	
 	public function footie_filter($content) {
 		$pattern= '%\s\[\[(.*?)\]\]%';
+
+		$options = get_option('plm-footie-settings');
+
+		$link_classes = implode(' ', array('notelink', $options['placement']));
+
+		if ( $options['placement'] == 'drop') {
+			$drop_classes = implode(' ', array($options['background'], $options['corners'], 'dropbox'));
+			$note_classes = 'notelist no-list';
+		} else {
+			$note_classes = 'notelist';
+		}
 	
 		preg_match_all($pattern, $content, $footnotes);
 
@@ -26,14 +39,23 @@ class PLM_footnotie {
 
 		$links = array();
 
-		$notelist = '<ol class="notelist">';
+		$notelist = sprintf('<ol class="%s">', $note_classes);
 
 		for($i=0; $i < count($notes); $i++) {
 			$c = $i + 1;
-			$links[$i] = '<span class="notelink">[<a id="link-' . $c . '"></a><a href="#note-' . $c . '">' . $c . '</a>]</span> ';
+			$links[$i] = sprintf('<span class="%2$s">[<a id="link-%1$s"></a><a href="#note-%1$s">%1$s</a>]', $c, $link_classes);
+			
+			if($options['placement'] == 'drop') {
+				$links[$i] .= sprintf('<span class="%1$s">%3$s. %2$s</span>', $drop_classes, $notes[$i], $c);
+			}
+
+			$links[$i] .= '</span>'; 
+
 			$patterns[$i] = '%' . preg_quote($patterns[$i], '%') . '%';
-			$notelist .= "\n" . '<li><a id="note-' . $c . '"></a>' . $notes[$i] . ' [<span class="notelink"><a href="#link-' . $c . '">&#x2b0f;</a></span>]' . "\n";
+
+			$notelist .= "\n" . sprintf('<li><a id="note-%1$s"></a>%2$s [<span class="notelink"><a href="#link-%1$s">&#x2b0f;</a></span>]', $c, $notes[$i]) . "\n";
 		}
+
 		$notelist .= '</ol>';
 
 		if(is_single() | is_page()) {
@@ -51,6 +73,8 @@ class PLM_footnotie {
 
 	public function styles_and_scripts() {
 		wp_enqueue_style('plm_footie_style', plugins_url('style.css', __FILE__));
+		wp_register_script('plm_footie_jquery', plugins_url('js/footie.js', __FILE__), 'jquery', '1.0', true);
+		wp_enqueue_script('plm_footie_jquery');
 	}
 
 }
