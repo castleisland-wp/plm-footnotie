@@ -10,9 +10,45 @@
   margin-left: 20px;
   margin-bottom: 5px;
 }
+/* line 12, style.scss */
+.notelist.no-list.hide {
+  display: none;
+}
 
-/* line 14, style.scss */
+/* line 17, style.scss */
 .notelink {
   vertical-align: super;
   font-size: 75%;
+  position: relative;
+}
+
+/* line 23, style.scss */
+.dropbox {
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  padding: 4px;
+  border: 1px solid black;
+  top: 16px;
+  left: -150px;
+  width: 300px;
+  background-color: white;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+/* line 33, style.scss */
+.dropbox.round {
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+}
+/* line 36, style.scss */
+.dropbox.trans {
+  opacity: 0.9;
+}
+/* line 40, style.scss */
+.dropbox.show {
+  visibility: visible;
 }
